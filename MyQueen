@@ -1,0 +1,57 @@
+class Node {
+    public int val;
+    public Node next;
+
+    public Node(int val) {
+        this.val = val;
+    }
+}
+public class MyQueue {
+
+    public Node front;//头
+    public Node rear;//尾
+
+    public int usedSize;
+
+    //入队
+    public void offer(int val) {
+        Node node = new Node(val);
+        if(this.front == null) {
+            this.front = node;
+            this.rear = node;
+        }else {
+            this.rear.next = node;
+            this.rear = node;
+        }
+        this.usedSize++;
+    }
+
+    //出队
+    public int poll() throws UnsupportedOperationException {
+        if(isEmpty()) {
+            throw new UnsupportedOperationException("队列为空！");
+        }
+        int old = this.front.val;
+        this.front = this.front.next;
+        this.usedSize--;
+        return old;
+    }
+
+    //获取队头元素 但是不删除
+    public int peek() throws UnsupportedOperationException{
+        if(isEmpty()) {
+            throw new UnsupportedOperationException("队列为空！");
+        }
+        return this.front.val;
+    }
+
+    public boolean isEmpty() {
+        return this.usedSize == 0;
+        //return this.front == null;
+    }
+
+    public int size() {
+        return this.usedSize;
+    }
+
+}
